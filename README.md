@@ -1,89 +1,33 @@
 # PyBer_Analysis
 
 ## Overview of Project
-The project consists of using databases from the city and ride sharing data and 
-
-### Purpose
-The purpose of this project is to better understand the overall success and falure rate of the different theater and play kickstarter campaigns and to analyze for any trends in the dates and goals. 
-
-## Analysis and Challenges
-
-### Analysis of Outcomes Based on Launch Date
-To analyze the outcomes of theater kickstarter campaigns based on the launch date month, a pivot table was created using the information from the kickstarter worksheet.
-
-The year of the launch date of the kickstarter was determined by the "Date Created Conversion" Column, by using the following format:
-
-=year()
-
-Fields from the column headers of the kickstarter worksheet were dragged to the areas:
-
-1. Filters:
-    1. Parent Category
-    2. Years
-2. Columns
-    outcomes
-3. Rows
-    Date Created Conversion
-4. Values
-    outcomes
-
-When the "Date Created Conversion" was dragged into "Rows", different parts of the date was separated out as sub-categorial options for organizing the data. All of the different fields were deleted until the Row labels only showed the month. 
-
-The Pivot table Fields showed as:
-![Pivot Table Fields for Outcomes Based on Launch Date](https://github.com/jennymvo/kickstarter-analysis/blob/main/images/launch_date_PivotTableFields.png)
-
-The parent Catagory in the pivot table was filtered to "theater", and the column lables were arranged by "successful," "failed," and "canceled" by using the filter icon next to "Column labels" and arranging by Z to A order. 
-
-The resulting pivot table is shown as:
-![Pivot table for outcomes based on launch date](https://github.com/jennymvo/kickstarter-analysis/blob/main/images/launch_date_PivotTable.png)
-
-A line chart was created using the data from this table:
-
-![Line chart showing the theater outcomes based on launch date](https://github.com/jennymvo/kickstarter-analysis/blob/main/resources/Theater_Outcomes_vs_Launch.png)
-    
-### Analysis of Outcomes Based on Goals
-To analyze the outcomes of the kickstarter campaigns based on the goals, the kickstarter campaigns were grouped in increments of $5000, from less than $1000, $1000 to $4999, etc until $50,000 or more. 
-
-The number of kickstarters with outcomes of "sucessful", "failed", and "canceled" were calculated from each monetary category, then summed for determining the total number of projects from those monetary categories. the percentage of successful, failed, and canceled and kickstarter campaigns were then determined. 
-
-For determining the number of successful, failed, and canceled products, the =countifs() function was used, with filtering for certain strings from the "outcome", "subcategory" and "goal" ranges. 
-
-An example of one of the calculations for determining the number of "successful" campaigns is here:
-![countifs() for goals](https://github.com/jennymvo/kickstarter-analysis/blob/main/images/countifs_goals.png)
-
-This was used with the F column filered for "failed" and "canceled" for their respective columns. 
-
-For total projects, the sum of the row of values from the sucessful, failed, and cancelled campaigns were determined using the =sum() function. 
-
-To find the percentage successful and failed projects, the value from the outcome of the project was divided by the total number of projects, then the number format was changed to "percentage"
-
-The resulting table looks like this:
-![Table of outcomes based on goals](https://github.com/jennymvo/kickstarter-analysis/blob/main/images/table_goals.png)
-
-A line graph with the x-axis as the goal level and the percentage of successful and failed were plotted against the y-axis, resulting in a table like this:
-
-![Outcomes based on goal](https://github.com/jennymvo/kickstarter-analysis/blob/main/resources/Outcomes_vs_Goals.png)
-
-### Challenges and Difficulties Encountered
-A challenge that I faced while doing this assigment was using a range of rows for determining the number of successful, failed, and canceled campaigns. The inaccurate number of rows resulted in an incorrect calculation for each outcome. When I took the range out for the calculation to be based on all values within the row, it fixed the proble. 
+The project consists of using pandas dataframes and matplotlib to create a summary of the ride-sharing data from different city types, and to create a multiple-line graph showing the total fares per week for each city type in a range of dates.  
 
 ## Results
 
-- What are two conclusions you can draw about the Outcomes based on Launch Date?
+![Summary of Ride-sharing data in city types](https://github.com/jennymvo/PyBer_Analysis/blob/main/images/summary_df.png)
 
-1. The most sucessful campaigns were launched during the summer.
-2. The campaigns during December have the lowest success rate. 
+To determine the average fare per ride and driver of each city type, the total rides, total drivers, and total fares were first determined then the values were used to calculate the average fares. 
 
-- What can you conclude about the Outcomes based on Goals?
+Urban cities were found to have the highest total fares compared to suburban and rural areas, and also the highest number of rides and drivers. However, the average fare per ride and driver were the lowest among the list. 
 
-The more ambitious goals ($45,000 and up) have the highest failure rate, and the goals that are less ambitious ($4999 and lower) have the highest success rate
+In contrast, rural cities have the lowest total fares, rides, and drivers but the highest average fare per ride and driver.
 
-- What are some limitations of this dataset?
+Data from the suburban city type nearly centers in the ranges for rural and urban city types. 
 
-The dataset has the average donation, but it does not show the range of donation amounts, or if the kickstarter gave any incentives for backing or certain types of advertisements that could influence the success of the campaign. 
+![Total fares by city type through Jan - April 2019](https://github.com/jennymvo/PyBer_Analysis/blob/main/images/line_chart.png)
 
-- What are some other possible tables and/or graphs that we could create?
+To see the trend of the total fares throughout January and April of 2019 for all three city types, the data of each ride was binned to weeks, then the data was plotted on a line graph with the weeks on the x-axis and the total fares for those weeks on the y-axis. 
 
-Some tables that we could create are:
-1. to compare the outcomes of the kickstarter based the categories goals
-2. create box and whisker plots of the different categories with the goal amounts, comparing the boxes of successful, failed, and cancelled. 
+The trends of fare totals for each city type is consistant, with rural having the least amount of fares, urban with the highest amount of fares, and suburban having a middle amount of fares. 
+
+There is a clear trend for all three city types in Feburary, where there is a slowdown of fares to the middle of Feburary and then a sharp spike of fare totals for all three city types at the last week of Feburary. 
+
+At the end of April, there is increased fares in suburban areas but there is a decrease in rural and urban areas. 
+
+## Summary
+
+As a summary, some business recommendations for the CEO:
+1. As there is a high demand for rides in urban cities, the drivers are earning less per ride. I suggest increasing the fares in this area so the drivers can earn more per ride.
+2. In rural cities, even though the drivers are earning more per ride in comparision to urban cities, there is not much demand for rides. Possibly want to increase marketing in these areas for increasing demand, or creating some kind of incentive.
+3. For the trends in decreases of fares in each city type throughout the year, incentives should be implemented, especially pertaining to the first half of Feburary, and for rural and urban areas at the end of April. 
